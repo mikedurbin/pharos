@@ -1,0 +1,26 @@
+version: '2'
+services:
+    db:
+        image: postgres:9.4.5
+        ports:
+            - '5432:5432'
+        volumes:
+          - pharos-postgres:/var/lib/postgresql/data
+        env_file:
+          - .env
+    web:
+        build: .
+        image: pharos-passenger:latest
+        depends_on:
+            - db
+        links:
+          - db
+        volumes:
+          - ./Docker/Volumes/pharos:/pharos
+        ports:
+          - '3300:80'
+        env_file:
+          - .env
+volumes:
+  pharos-postgres:
+
