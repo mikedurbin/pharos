@@ -48,6 +48,7 @@ group :development do
   gem 'spring'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '1.3.11'
+end
 
 group :test do
   gem 'capybara', '2.8.1'
