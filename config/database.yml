@@ -1,0 +1,41 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+default: &default
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+  username: <%= ENV['PHAROS_DB_USER'] %>
+  host:     <%= ENV['PHAROS_DB_HOST'] %>
+  password: <%= ENV['PHAROS_DB_PWD'] %>
+
+development:
+  <<: *default
+  database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
+
+# Database for integration tests. This will be emptied between
+# tests.
+integration:
+  <<: *default
+  database: db/integration.sqlite3
+
+# Demo environment for APTrust Demo system
+demo:
+  <<: *default
+  adapter: postgresql
+  database: pharos_demo
+
+production:
+  <<: *default
+  adapter: postgresql
+  database: pharos_production

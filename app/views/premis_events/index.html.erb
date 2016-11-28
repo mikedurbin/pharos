@@ -1,0 +1,30 @@
+<div id="sidebar" class="col-md-3 col-sm-4">
+  <div class="facets sidenav">
+    <h3> Limit your search </h3>
+    <%= render 'shared/filters/institution_filter' %>
+    <%= render 'shared/filters/object_association_filter' %>
+    <%= render 'shared/filters/file_association_filter' %>
+    <%= render 'shared/filters/event_type_filter' %>
+    <%= render 'shared/filters/outcome_filter' %>
+  </div>
+</div>
+
+<div id="content" class="col-md-9 col-sm-8">
+  <% if @parent.kind_of?(Institution) %>
+      <% title = @parent.name %>
+  <% elsif @parent.kind_of?(IntellectualObject) %>
+      <% title = @parent.title %>
+  <% elsif @parent.kind_of?(GenericFile) %>
+      <% title = @parent.identifier %>
+  <% end %>
+  <h2 class="top-content-title">Premis Events for <%= title %></h2>
+  <%= render 'shared/search_breadcrumb' %>
+  <%= render 'shared/sort_and_per_page' %>
+  <hr>
+  <%- if @paged_results.empty? %>
+      <%= render 'shared/zero_results' %>
+  <%- else %>
+      <%= render 'shared/search_results' %>
+  <%- end %>
+  <%= render 'shared/compact_pagination' %>
+</div>

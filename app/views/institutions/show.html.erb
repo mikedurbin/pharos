@@ -1,0 +1,114 @@
+<div class="page-header">
+  <h1><%= @institution.name %></h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li><a href="#summary" data-toggle="tab">Summary</a></li>
+  <li><a href="#stats" data-toggle="tab">Statistics</a></li>
+  <li><%= link_to 'Objects', intellectual_objects_path(@institution, sort: 'date') %></li>
+  <li><a href="#users" data-toggle="tab">Users</a></li>
+  <li><%= link_to 'Events', institution_events_path(@institution) %></li>
+  <li><%= link_to 'Work Items', work_items_path %></li>
+  <li><%= link_to 'Reports', reports_path(@institution.identifier) %></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane" id="summary">
+
+    <dl class="dl-horizontal">
+      <dt>Users</dt>
+      <dd><%= @institution.users.count %></dd>
+      <dt>DPN UUID</dt>
+      <dd><%= @institution.dpn_uuid %></dd>
+      <dt>Intellectual Objects</dt>
+      <dd><%= @object_count %></dd>
+      <dt>Work Items</dt>
+      <dd><%= @item_count %></dd>
+      <dt>Total Storage Used</dt>
+      <dd><%= number_to_human_size(@size) %></dd>
+    </dl>
+
+    <%= render 'shared/work_items' %>
+
+    <%= link_to 'View All Jobs', work_items_path %>
+  </div>
+
+  <div class="tab-pane" id="stats">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>Type of Content</th>
+        <th>Amount Uploaded</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @institution.bytes_by_format.each do |format, bytes| %>
+          <tr>
+            <td class="<%=format_class(format) %>"><%= format_display(format) %></td>
+            <td class="bytes"><%=number_to_human_size bytes %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div id="chart-frame"><table>
+      <tr>
+        <td></td>
+        <td style="text-align: center;">Bytes Ingested Over Time</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div id="chart" style="padding: 20px; position: relative;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </table></div>
+
+    <script>
+        var options = {
+            grid: {
+                margin: {
+                    right: 20,
+                    left: 70,
+                    bottom: 20
+                }
+            },
+            xaxis: {
+                mode: "time",
+                timeformat: "%m/%d/%y",
+                minTickSize: [1, "day"]
+            }
+        };
+        $.plot("#chart", [<%=@institution.statistics %>], options);
+    </script>
+  </div>
+
+  <div class="tab-pane" id="users">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @institution.users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= show_link(user) %>
+              <%= edit_link(user) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
