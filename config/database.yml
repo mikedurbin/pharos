@@ -8,6 +8,9 @@ default: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
+  username: <%= ENV['PHAROS_DB_USER'] %>
+  host:     <%= ENV['PHAROS_DB_HOST'] %>
+  password: <%= ENV['PHAROS_DB_PWD'] %>
 
 development:
   <<: *default
@@ -31,14 +34,8 @@ demo:
   <<: *default
   adapter: postgresql
   database: pharos_demo
-  username: <%= ENV['PHAROS_DB_USER'] %>
-  host:     <%= ENV['PHAROS_DB_HOST'] %>
-  password: <%= ENV['PHAROS_DB_PWD'] %>
 
 production:
   <<: *default
   adapter: postgresql
   database: pharos_production
-  username: <%= ENV['PHAROS_DB_USER'] %>
-  host:     <%= ENV['PHAROS_DB_HOST'] %>
-  password: <%= ENV['PHAROS_DB_PWD'] %>
