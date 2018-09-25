@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '5.2.1'
 gem 'rails-controller-testing'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
+#gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 4.1.19'
 # Use CoffeeScript for .coffee assets and views
@@ -40,6 +41,7 @@ gem 'inherited_resources', '1.9.0'
 gem 'uuidtools'
 
 gem 'kaminari'
+#gem 'bootstrap', '~> 4.1.3'
 gem 'bootstrap-sass', '~> 3.3.7'
 
 # These gems aren't required directly but is required in dependencies and needs specific updating due to a security warning
