@@ -113,12 +113,6 @@ RSpec.describe UsersController, type: :controller do
         expect(institutional_admin.api_secret_key).to be_nil
         response.should redirect_to user_url(institutional_admin)
       end
-
-      it 'lets a user know when their password has expired and needs changing' do
-        old_user = FactoryBot.create(:user, :institutional_admin)
-        old_user.update(password_changed_at: Time.now.ago(4.month))
-        assert old_user.need_change_password?
-      end
     end
   end
 
