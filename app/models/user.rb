@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-         :timeoutable, :secure_validatable, :password_expirable, :password_archivable
+         :timeoutable, :secure_validatable, :password_archivable
 
   validates :email, presence: true, uniqueness: true
   validate :email_is_valid
