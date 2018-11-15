@@ -19,4 +19,9 @@
 <hr />
 
 <%= edit_link(@user) %>
+<% if @user.deactivated? %>
+    <%= reactivate_link(@user) %>
+<% else %>
+    <%= deactivate_link(@user) %>
+<% end %>
 <%= destroy_link(@user) %>
